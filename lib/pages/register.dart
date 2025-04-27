@@ -47,7 +47,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       // obscureText: false,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        hintText: "Enter Username",
+                        labelText: "Enter Username",
                         prefixIcon: Icon(Icons.alternate_email),
                       ),
                       validator: (value) {
@@ -63,7 +63,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       controller: fullNameController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        hintText: "Enter your Fullname",
+                        labelText: "Enter your Fullname",
                         prefixIcon: Icon(Icons.person),
                       ),
                       validator: (value) {
@@ -83,7 +83,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       controller: emailController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        hintText: "Enter your Email",
+                        labelText: "Enter your Email",
                         prefixIcon: Icon(Icons.email),
                       ),
                       validator: (value) {
@@ -102,7 +102,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       controller: phoneController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        hintText: "Enter your Phone number",
+                        labelText: "Enter your Phone number",
                         prefixIcon: Icon(Icons.contacts),
                       ),
                       validator: (value) {
@@ -122,7 +122,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       obscureText: _obscureText,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        hintText: "Enter your Password",
+                        labelText: "Enter your Password",
                         suffixIcon: IconButton(
                           icon: Icon(
                             _obscureText == false

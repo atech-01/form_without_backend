@@ -66,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
                 controller: usernameController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: "Enter Username",
+                  labelText: "Enter Username",
                   prefixIcon: Icon(Icons.alternate_email),
                 ),
                 validator: (value) {
@@ -85,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                 obscureText: _obscureText,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: "Enter your Password",
+                  labelText: "Enter your Password",
                   suffixIcon: IconButton(
                     icon: Icon(
                       _obscureText == false

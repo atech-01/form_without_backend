@@ -56,17 +56,43 @@ class _SecurityState extends State<Security> {
         child: Column(
           children: [
             SizedBox(height: 60),
-            TextFormField(
-              controller: _pinController,
-              obscureText: false,
-              decoration: InputDecoration(
-                labelText: 'Enter New PIN',
-                border: OutlineInputBorder(),
-              ),
-              readOnly: true,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(4, (index) {
+                return Container(
+                  width: 50,
+                  height: 50,
+                  margin: EdgeInsets.symmetric(horizontal: 10),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color:
+                        _pin.length > index ? Colors.black : Colors.transparent,
+                    border: Border.all(color: Colors.black, width: 1),
+                  ),
+                  child: Center(
+                    child: Text(
+                      _pin.length > index ? _pin[index] : '',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                );
+              }),
             ),
-            SizedBox(height: 20),
 
+            // TextFormField(
+            //   controller: _pinController,
+            //   obscureText: false,
+            //   decoration: InputDecoration(
+            //     labelText: 'Enter New PIN',
+            //     border: OutlineInputBorder(),
+            //   ),
+            //   readOnly: true,
+            // ),
+            SizedBox(height: 40),
             GridView.builder(
               shrinkWrap: true,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

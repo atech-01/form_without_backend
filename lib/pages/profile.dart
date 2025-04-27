@@ -17,7 +17,7 @@ class Profile extends StatelessWidget {
       "title": "Edit Profile",
       "subtitle": "Personal info, name, etc",
       "icon": Icons.edit,
-      "route": '/editProfile', // Add a route to navigate to
+      "route": '/edit_profile', // Add a route to navigate to
     },
     {
       "title": "Security",
@@ -97,7 +97,19 @@ class Profile extends StatelessWidget {
                       profile[index]['subtitle'],
                       profile[index]['icon'],
                       onTap: () {
-                        Navigator.pushNamed(context, profile[index]['route']);
+                        if (profile[index]['route'] == '/edit_profile') {
+                          Navigator.pushNamed(
+                            context,
+                            profile[index]['route'],
+                            arguments: {
+                              'fullname': fullname,
+                              'username': username,
+                              'email': email,
+                            },
+                          );
+                        } else {
+                          Navigator.pushNamed(context, profile[index]['route']);
+                        }
                       },
                     );
                   },
