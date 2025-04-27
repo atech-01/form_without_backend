@@ -82,16 +82,6 @@ class _SecurityState extends State<Security> {
                 );
               }),
             ),
-
-            // TextFormField(
-            //   controller: _pinController,
-            //   obscureText: false,
-            //   decoration: InputDecoration(
-            //     labelText: 'Enter New PIN',
-            //     border: OutlineInputBorder(),
-            //   ),
-            //   readOnly: true,
-            // ),
             SizedBox(height: 40),
             GridView.builder(
               shrinkWrap: true,

@@ -62,6 +62,7 @@ class _EditProfileState extends State<EditProfile> {
                     labelText: 'Full Name',
                     border: OutlineInputBorder(),
                   ),
+                  readOnly: true,
                 ),
                 SizedBox(height: 20),
 
@@ -72,6 +73,7 @@ class _EditProfileState extends State<EditProfile> {
                     labelText: 'Username',
                     border: OutlineInputBorder(),
                   ),
+                  readOnly: true,
                 ),
                 SizedBox(height: 20),
 
@@ -82,18 +84,17 @@ class _EditProfileState extends State<EditProfile> {
                     labelText: 'Email',
                     border: OutlineInputBorder(),
                   ),
+                  readOnly: true,
                 ),
                 SizedBox(height: 30),
 
                 // Save Button
                 GestureDetector(
                   onTap: () {
-                    // Get the updated values from the controllers
                     String updatedFullname = fullnameController.text;
                     String updatedUsername = usernameController.text;
                     String updatedEmail = emailController.text;
 
-                    // Optionally, pop the EditProfile screen
                     Navigator.pop(context, {
                       'fullname': updatedFullname,
                       'username': updatedUsername,
