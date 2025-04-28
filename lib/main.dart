@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         AppRoutes.indexPage: (context) => WelcomePage(),
+        //  AppRoutes.homePage: (context) => HomePage(),
         AppRoutes.security: (context) => Security(),
         AppRoutes.data: (context) => Data(),
         AppRoutes.airtime: (context) => Airtime(),
