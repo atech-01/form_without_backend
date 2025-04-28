@@ -8,6 +8,8 @@ import 'package:forms_validate/pages/profile/sign_out.dart';
 import 'package:forms_validate/pages/register.dart';
 import 'package:forms_validate/pages/router.dart';
 import 'package:forms_validate/pages/welcome_page.dart';
+import 'package:forms_validate/services/airtime.dart';
+import 'package:forms_validate/services/data.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,6 +25,8 @@ class MyApp extends StatelessWidget {
       routes: {
         AppRoutes.indexPage: (context) => WelcomePage(),
         AppRoutes.security: (context) => Security(),
+        AppRoutes.data: (context) => Data(),
+        AppRoutes.airtime: (context) => Airtime(),
         AppRoutes.logout: (context) => SignOut(),
         AppRoutes.register: (context) => RegisterPage(),
         AppRoutes.login: (context) => LoginPage(),

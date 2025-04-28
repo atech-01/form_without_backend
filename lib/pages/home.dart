@@ -96,14 +96,35 @@ class HomePage extends StatelessWidget {
               crossAxisSpacing: 10,
               mainAxisSpacing: 10,
               children: [
-                _buildServiceTile(Icons.add, "Fund", Colors.amber),
-                _buildServiceTile(Icons.phone, "Airtime", Colors.blue),
-                _buildServiceTile(Icons.wifi, "Data", Colors.green),
-                _buildServiceTile(Icons.receipt, "Cable", Colors.orange),
-                _buildServiceTile(Icons.flash_on, "Electricity", Colors.purple),
-                _buildServiceTile(Icons.send, "Transfer", Colors.redAccent),
-                _buildServiceTile(Icons.message, "Bulk SMS", Colors.pink),
-                _buildServiceTile(Icons.more_horiz, "More", Colors.indigo),
+                _buildServiceTile(Icons.add, "Fund", Colors.amber, () {
+                  Navigator.pushNamed(context, "/fund");
+                }),
+                _buildServiceTile(Icons.phone, "Airtime", Colors.blue, () {
+                  Navigator.pushNamed(context, "/airtime");
+                }),
+                _buildServiceTile(Icons.wifi, "Data", Colors.green, () {
+                  Navigator.pushNamed(context, "/data");
+                }),
+                _buildServiceTile(Icons.receipt, "Cable", Colors.orange, () {
+                  Navigator.pushNamed(context, "/cable");
+                }),
+                _buildServiceTile(
+                  Icons.flash_on,
+                  "Electricity",
+                  Colors.purple,
+                  () {
+                    Navigator.pushNamed(context, "/bill");
+                  },
+                ),
+                _buildServiceTile(Icons.send, "Transfer", Colors.redAccent, () {
+                  Navigator.pushNamed(context, "/transfer");
+                }),
+                _buildServiceTile(Icons.message, "Bulk SMS", Colors.pink, () {
+                  Navigator.pushNamed(context, "/bsm");
+                }),
+                _buildServiceTile(Icons.more_horiz, "More", Colors.indigo, () {
+                  Navigator.pushNamed(context, "/more");
+                }),
               ],
             ),
           ),
@@ -142,17 +163,29 @@ Widget _cardItem() {
   );
 }
 
-Widget _buildServiceTile(IconData icon, String label, Color color) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      CircleAvatar(
-        radius: 26,
-        backgroundColor: color,
-        child: Icon(icon, color: Colors.white),
-      ),
-      SizedBox(height: 5),
-      Text(label, style: TextStyle(fontSize: 12), textAlign: TextAlign.center),
-    ],
+Widget _buildServiceTile(
+  IconData icon,
+  String label,
+  Color color,
+  VoidCallback onTap,
+) {
+  return GestureDetector(
+    onTap: onTap,
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        CircleAvatar(
+          radius: 26,
+          backgroundColor: color,
+          child: Icon(icon, color: Colors.white),
+        ),
+        SizedBox(height: 5),
+        Text(
+          label,
+          style: TextStyle(fontSize: 12),
+          textAlign: TextAlign.center,
+        ),
+      ],
+    ),
   );
 }
