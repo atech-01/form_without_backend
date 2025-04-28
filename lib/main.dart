@@ -10,6 +10,7 @@ import 'package:forms_validate/pages/router.dart';
 import 'package:forms_validate/pages/welcome_page.dart';
 import 'package:forms_validate/services/airtime.dart';
 import 'package:forms_validate/services/data.dart';
+import 'package:forms_validate/services/fund.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         AppRoutes.login: (context) => LoginPage(),
         AppRoutes.editProfile: (context) => EditProfile(),
         AppRoutes.home: (context) => BottomNavBar(),
+        AppRoutes.fund: (context) => Fund(),
       },
     );
   }

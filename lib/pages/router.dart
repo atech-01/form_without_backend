@@ -11,4 +11,5 @@ class AppRoutes {
   static const airtime = '/airtime';
   static const bill = '/bill';
   static const cable = '/cable';
+  static const fund = '/fund';
 }
