@@ -7,9 +7,11 @@ class AppRoutes {
   static const editProfile = '/edit_profile';
   static const home = '/bottom_nav_bar';
   static const data = '/data';
+  static const transfer = '/transfer';
   static const homePage = '/home';
   static const airtime = '/airtime';
   static const bill = '/bill';
   static const cable = '/cable';
+  // static const profile = '/profile';
   static const fund = '/fund';
 }

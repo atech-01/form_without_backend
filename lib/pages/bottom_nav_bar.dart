@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:forms_validate/pages/history.dart';
 import 'package:forms_validate/pages/home.dart';
 import 'package:forms_validate/pages/profile.dart';
+import 'package:http/http.dart' as http;
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -14,17 +17,18 @@ class _BottomNavBarState extends State<BottomNavBar> {
   late String username;
   late String fullname;
   late String email;
+  late String phone;
+  late int bal;
+
   int selectedItem = 0;
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final args =
-        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
-    fullname = args['fullname'];
-    username = args['username'];
-    email = args['email'];
-  }
+  Map<String, dynamic>? userData;
+
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController fullNameController = TextEditingController();
+  // TextEditingController passwordController = TextEditingController();
 
   void _onTapItem(int index) {
     setState(() {
@@ -32,12 +36,67 @@ class _BottomNavBarState extends State<BottomNavBar> {
     });
   }
 
+  late int userId;
+  @override
+  void didChangeDependencies() {
+    if (ModalRoute.of(context)!.settings.arguments != null) {
+      var args = ModalRoute.of(context)!.settings.arguments as Map;
+
+      userId = int.parse(args['user_id'].toString());
+
+      fetchUserData();
+    } else {
+      debugPrint("UserId is null");
+    }
+    super.didChangeDependencies();
+  }
+
+  Future fetchUserData() async {
+    var url = Uri.parse("https://ayosdata.com.ng/backend/profile.php");
+
+    var response = await http.post(
+      url,
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({'user_id': userId}),
+    );
+    debugPrint(response.body);
+    if (response.statusCode == 200) {
+      final decoded = jsonDecode(response.body);
+
+      setState(() {
+        userData = decoded;
+      });
+    } else {
+      debugPrint("Failed to fetch user data. Status: ${response.statusCode}");
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUserData();
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (userData == null || userData!['data'] == null) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+
+    final user = userData!['data'];
+
     final List<Widget> appScreen = [
-      HomePage(username: username, fullname: fullname),
+      HomePage(
+        username: user!['username'],
+        fullname: user!['fullname'],
+        bal: user!['bal'],
+      ),
       const History(),
-      Profile(username: username, fullname: fullname, email: email),
+      Profile(
+        username: user!['username'],
+        fullname: user!['fullname'],
+        email: user!['email'],
+      ),
     ];
 
     return Scaffold(

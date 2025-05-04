@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:forms_validate/pages/bottom_nav_bar.dart';
-// import 'package:forms_validate/pages/home.dart';
 import 'package:forms_validate/pages/login.dart';
+// import 'package:forms_validate/pages/profile.dart';
 import 'package:forms_validate/pages/profile/edit_profile.dart';
 import 'package:forms_validate/pages/profile/security.dart';
 import 'package:forms_validate/pages/profile/sign_out.dart';
+import 'package:forms_validate/pages/profile/transfer.dart';
 import 'package:forms_validate/pages/register.dart';
 import 'package:forms_validate/pages/router.dart';
 import 'package:forms_validate/pages/welcome_page.dart';
@@ -35,6 +36,8 @@ class MyApp extends StatelessWidget {
         AppRoutes.editProfile: (context) => EditProfile(),
         AppRoutes.home: (context) => BottomNavBar(),
         AppRoutes.fund: (context) => Fund(),
+        // AppRoutes.profile: (context) => Profile(),
+        AppRoutes.transfer: (context) => Transfer(),
       },
     );
   }

@@ -1,5 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-// import 'package:forms_validate/pages/home.dart';
+import 'package:forms_validate/pages/router.dart';
+import 'package:forms_validate/show_dialog/alert_dialog.dart';
+import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -10,51 +16,57 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final formKey = GlobalKey<FormState>();
-  RegExp emailRegex = RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
+
   bool _obscureText = true;
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  late String fullname;
   late String username;
   late String password;
-  late String email;
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final args =
-        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
-    fullname = args['fullname'];
-    username = args['username'];
-    email = args['email'];
-    password = args['password'];
-  }
+  Future login() async {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (_) => const Center(child: CircularProgressIndicator()),
+    );
 
-  void handleLogin() {
-    debugPrint("Username: $username, Password: $password");
-    if (usernameController.text == username &&
-        passwordController.text == password) {
+    var url = Uri.parse('https://ayosdata.com.ng/backend/login.php');
+
+    var response = await http
+        .post(
+          url,
+          headers: {"Content-Type": "application/json"},
+          body: jsonEncode({
+            'username': usernameController.text,
+            'password': passwordController.text,
+          }),
+        )
+        .timeout(const Duration(seconds: 10));
+    debugPrint(response.body);
+    var responseData = jsonDecode(response.body);
+
+    Navigator.of(context).pop();
+
+    if (response.statusCode == 200 && responseData['status'] == true) {
+      var userId = responseData['user_id'];
       Navigator.pushNamed(
         context,
-        "/bottom_nav_bar",
-        arguments: {'fullname': fullname, 'username': username, 'email': email},
+        AppRoutes.home,
+        arguments: {'user_id': userId},
       );
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            'Invalid username or password',
-            style: TextStyle(color: Colors.red),
-          ),
-        ),
-      );
+      CustomDialogs2.showErrorDialog(context, message: responseData['message']);
+      // ScaffoldMessenger.of(
+      //   context,
+      // ).showSnackBar(SnackBar(content: Text(responseData['message'])));
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // appBar: AppBar(),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 10),
         child: Form(
@@ -69,13 +81,13 @@ class _LoginPageState extends State<LoginPage> {
                   labelText: "Enter Username",
                   prefixIcon: Icon(Icons.alternate_email),
                 ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return "Field can't be empty";
-                  } else {
-                    return null;
-                  }
-                },
+                // validator: (value) {
+                //   if (value!.isEmpty) {
+                //     return "Field can't be empty";
+                //   } else {
+                //     return null;
+                //   }
+                // },
               ),
               SizedBox(height: 30),
 
@@ -99,19 +111,19 @@ class _LoginPageState extends State<LoginPage> {
                     },
                   ),
                 ),
-                validator: (value) {
-                  if (value!.length < 5) {
-                    return "Password must be at least 5 characters";
-                  } else if (value.isEmpty) {
-                    return "Field can't be empty";
-                  } else {
-                    return null;
-                  }
-                },
+                // validator: (value) {
+                //   if (value!.length < 5) {
+                //     return "Password must be at least 5 characters";
+                //   } else if (value.isEmpty) {
+                //     return "Field can't be empty";
+                //   } else {
+                //     return null;
+                //   }
+                // },
               ),
               SizedBox(height: 20),
               GestureDetector(
-                onTap: handleLogin,
+                onTap: login,
                 //  () {
                 //   if (formKey.currentState!.validate()) {}
                 // },
@@ -135,7 +147,7 @@ class _LoginPageState extends State<LoginPage> {
               Center(
                 child: InkWell(
                   onTap: () {
-                    debugPrint("Hello world");
+                    // debugPrint("Hello world");
                     Navigator.pushNamed(context, "/register");
                   },
                   child: Text("Don't have an account yet?"),

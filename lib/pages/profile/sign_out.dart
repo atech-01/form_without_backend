@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:forms_validate/pages/router.dart';
 
 class SignOut extends StatefulWidget {
   const SignOut({super.key});
@@ -54,7 +55,7 @@ class _SignOutState extends State<SignOut> {
                   // Yes button
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/register');
+                      Navigator.pushNamed(context, AppRoutes.indexPage);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.black,

@@ -17,7 +17,7 @@ class Profile extends StatelessWidget {
       "title": "Edit Profile",
       "subtitle": "Personal info, name, etc",
       "icon": Icons.edit,
-      "route": '/edit_profile', // Add a route to navigate to
+      "route": '/edit_profile',
     },
     {
       "title": "Security",
@@ -107,8 +107,22 @@ class Profile extends StatelessWidget {
                               'email': email,
                             },
                           );
+                        }
+                        if (profile[index]['route'] == '/security') {
+                          Navigator.pushNamed(
+                            context,
+                            profile[index]['route'],
+                            arguments: {
+                              'username': username,
+                              'fullname': fullname,
+                            },
+                          );
                         } else {
-                          Navigator.pushNamed(context, profile[index]['route']);
+                          Navigator.pushNamed(
+                            context,
+                            profile[index]['route'],
+                            arguments: {'username': username},
+                          );
                         }
                       },
                     );

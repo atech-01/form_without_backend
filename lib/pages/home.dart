@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:forms_validate/pages/router.dart';
+import 'package:intl/intl.dart';
 // import 'package:forms_validate/pages/bottom_nav_bar.dart';
 
 class HomePage extends StatelessWidget {
   final String username;
   final String fullname;
+  final int bal;
 
-  const HomePage({super.key, required this.username, required this.fullname});
+  const HomePage({
+    super.key,
+    required this.username,
+    required this.fullname,
+    required this.bal,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +84,11 @@ class HomePage extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "₦400",
+                        NumberFormat.currency(
+                          locale: 'en_NG',
+                          symbol: '₦',
+                        ).format(bal),
+
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                     ],
@@ -117,7 +129,11 @@ class HomePage extends StatelessWidget {
                   },
                 ),
                 _buildServiceTile(Icons.send, "Transfer", Colors.redAccent, () {
-                  Navigator.pushNamed(context, "/transfer");
+                  Navigator.pushNamed(
+                    context,
+                    AppRoutes.transfer,
+                    arguments: {'username': username},
+                  );
                 }),
                 _buildServiceTile(Icons.message, "Bulk SMS", Colors.pink, () {
                   Navigator.pushNamed(context, "/bsm");

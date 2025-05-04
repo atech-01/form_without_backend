@@ -1,4 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
+// import 'dart:convert';
+
 import 'package:flutter/material.dart';
+// import 'package:http/http.dart' as http;
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
@@ -17,24 +21,54 @@ class _EditProfileState extends State<EditProfile> {
   late TextEditingController emailController;
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final args =
-        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
-
-    fullname = args['fullname'];
-    username = args['username'];
-    email = args['email'];
-
-    // Initialize the controllers with the current values
-    fullnameController = TextEditingController(text: fullname);
-    usernameController = TextEditingController(text: username);
-    emailController = TextEditingController(text: email);
+  void initState() {
+    super.initState();
+    fullnameController = TextEditingController();
+    usernameController = TextEditingController();
+    emailController = TextEditingController();
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    final args =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+    if (args != null) {
+      usernameController.text = args['username'] ?? '';
+      fullnameController.text = args['fullname'] ?? '';
+      emailController.text = args['email'] ?? '';
+    }
+  }
+
+  // Future editProfile() async {
+  //   var url = Uri.parse('http://192.168.81.64/backend/editProfile.php');
+  //   var response = await http.post(
+  //     url,
+  //     headers: {"Content-Type": "application/json"},
+  //     body: jsonEncode({
+  //       'username': usernameController.text,
+  //       'fullname': fullnameController.text,
+  //       'email': emailController.text,
+  //     }),
+  //   );
+  //   debugPrint(response.body);
+  //   var responseData = jsonDecode(response.body);
+
+  //   if (response.statusCode == 200 && responseData['status'] == true) {
+  //     ScaffoldMessenger.of(
+  //       context,
+  //     ).showSnackBar(SnackBar(content: Text(responseData['message'])));
+  //     Navigator.pop(context);
+  //   } else {
+  //     ScaffoldMessenger.of(
+  //       context,
+  //     ).showSnackBar(SnackBar(content: Text(responseData['message'])));
+  //   }
+  // }
+
+  @override
   void dispose() {
-    // Dispose the controllers when the widget is disposed
     fullnameController.dispose();
     usernameController.dispose();
     emailController.dispose();
@@ -66,7 +100,6 @@ class _EditProfileState extends State<EditProfile> {
                 ),
                 SizedBox(height: 20),
 
-                // Username Field
                 TextFormField(
                   controller: usernameController,
                   decoration: InputDecoration(
@@ -90,17 +123,7 @@ class _EditProfileState extends State<EditProfile> {
 
                 // Save Button
                 GestureDetector(
-                  onTap: () {
-                    String updatedFullname = fullnameController.text;
-                    String updatedUsername = usernameController.text;
-                    String updatedEmail = emailController.text;
-
-                    Navigator.pop(context, {
-                      'fullname': updatedFullname,
-                      'username': updatedUsername,
-                      'email': updatedEmail,
-                    });
-                  },
+                  // onTap: editProfile,
                   child: Container(
                     padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                     margin: EdgeInsets.symmetric(vertical: 10),
