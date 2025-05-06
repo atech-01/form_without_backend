@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class CustomDialogs {
-  static void showSuccessDialog(
+  static showSuccessDialog(
     BuildContext context, {
     required String message,
-    VoidCallback? onOkay,
+    Function? onOkay,
   }) {
-    showDialog(
+    return showDialog(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
@@ -72,10 +72,10 @@ class CustomDialogs {
 }
 
 class CustomDialogs2 {
-  static void showErrorDialog(
+  static showErrorDialog(
     BuildContext context, {
     required String message,
-    VoidCallback? onOkay,
+    Function? onOkay,
   }) {
     showDialog(
       context: context,

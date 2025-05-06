@@ -95,6 +95,7 @@ class _LoginPageState extends State<LoginPage> {
                 keyboardType: TextInputType.text,
                 controller: passwordController,
                 obscureText: _obscureText,
+                obscuringCharacter: "*",
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: "Enter your Password",
@@ -121,7 +122,19 @@ class _LoginPageState extends State<LoginPage> {
                 //   }
                 // },
               ),
-              SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, AppRoutes.forgotPass);
+                    },
+                    child: Text("Forgot Password"),
+                  ),
+                ],
+              ),
+
+              SizedBox(height: 10),
               GestureDetector(
                 onTap: login,
                 //  () {

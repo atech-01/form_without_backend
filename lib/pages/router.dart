@@ -12,6 +12,6 @@ class AppRoutes {
   static const airtime = '/airtime';
   static const bill = '/bill';
   static const cable = '/cable';
-  // static const profile = '/profile';
+  static const forgotPass = '/forgot_password';
   static const fund = '/fund';
 }

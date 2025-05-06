@@ -144,7 +144,7 @@ class HomePage extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 15),
+          SizedBox(height: 25),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
             child: Text(
@@ -153,6 +153,7 @@ class HomePage extends StatelessWidget {
             ),
           ),
 
+          SizedBox(height: 15),
           Expanded(
             child: ListView.builder(
               padding: EdgeInsets.symmetric(vertical: 6, horizontal: 6),
